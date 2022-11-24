@@ -1,6 +1,6 @@
 import os
 import logging
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from info import START_MSG, CHANNELS, ADMINS, AUTH_CHANNEL, CUSTOM_FILE_CAPTION
 from utils import Media, get_file_details, get_size
@@ -19,7 +19,7 @@ async def start(bot, cmd):
                     await bot.send_message(
                         chat_id=cmd.from_user.id,
                         text="Sorry Sir, You are Banned to use me.",
-                        parse_mode="markdown",
+                        parse_mode=enums.ParseMode.MARKDOWN,
                         disable_web_page_preview=True
                     )
                     return
@@ -38,14 +38,14 @@ async def start(bot, cmd):
                             ]
                         ]
                     ),
-                    parse_mode="markdown"
+                    parse_mode=enums.ParseMode.MARKDOWN
                 )
                 return
             except Exception:
                 await bot.send_message(
                     chat_id=cmd.from_user.id,
                     text="Something went Wrong.",
-                    parse_mode="markdown",
+                    parse_mode=enums.ParseMode.MARKDOWN,
                     disable_web_page_preview=True
                 )
                 return
@@ -94,7 +94,7 @@ async def start(bot, cmd):
     else:
         await cmd.reply_text(
             START_MSG,
-            parse_mode="Markdown",
+            parse_mode=enums.ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
