@@ -1,6 +1,6 @@
 import logging
 import asyncio
-from pyrogram import Client, filters
+from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait
 from info import ADMINS
 import os
@@ -51,13 +51,13 @@ async def index_files(bot, message):
                         print(e)
                         pass
                     try:
-                        for file_type in ("document", "video", "audio"):
-                            media = getattr(message, file_type, None)
+                        for file_type in (enums.MessageMediaType.VIDEO, enums.MessageMediaType.AUDIO, enums.MessageMediaType.DOCUMENT):
+                            media = getattr(message, file_type.value, None)
                             if media is not None:
                                 break
                             else:
                                 continue
-                        media.file_type = file_type
+                        media.file_type = file_type.value
                         media.caption = message.caption
                         await save_file(media)
                         total_files += 1
